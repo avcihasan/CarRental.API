@@ -36,5 +36,22 @@ namespace CarRental.API.Controllers
             return CreateActionResult(CustomResponseDto<BrandDto>.Success(201, brandDto));
 
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(BrandDto brandDto)
+        {
+            var brand = _mapper.Map<Brand>(brandDto);
+            await _service.UpdateAsync(brand);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var brand = await _service.GetByIdAsync(id);
+            await _service.RemoveAsync(brand);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        }
     }
 }
