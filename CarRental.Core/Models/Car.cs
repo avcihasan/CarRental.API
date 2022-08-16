@@ -27,5 +27,8 @@ namespace CarRental.Core.Models
 
         public int ModelYearId { get; set; }
         public ModelYear ModelYear { get; set; }
+
+        
+        public User User { get; set; }
     }
 }

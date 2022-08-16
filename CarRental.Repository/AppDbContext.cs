@@ -15,6 +15,12 @@ namespace CarRental.Repository
         }
 
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Engine> Engines { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<ModelYear> ModelYears { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

@@ -6,15 +6,15 @@ using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.API.Controllers
+namespace CarRental.API.Controllers.CarControllers
 {
-    
+
     public class ModelYearController : CustomBaseController
     {
         private readonly IService<ModelYear> _service;
         private readonly IMapper _mapper;
 
-       
+
 
         public ModelYearController(IService<ModelYear> service, IMapper mapper)
         {
@@ -22,7 +22,7 @@ namespace CarRental.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]   
+        [HttpGet]
         public async Task<IActionResult> All()
         {
             var modelYears = await _service.GetAllAsync();
@@ -30,7 +30,7 @@ namespace CarRental.API.Controllers
             return CreateActionResult(CustomResponseDto<List<ModelYearDto>>.Success(200, modelYearsDto.OrderBy(x => x.Year).ToList()));
         }
 
-        [HttpPost]  
+        [HttpPost]
         public async Task<IActionResult> Save(ModelYearDto modelYearDto)
         {
             var modelYear = _mapper.Map<ModelYear>(modelYearDto);

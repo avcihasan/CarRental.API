@@ -6,9 +6,9 @@ using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.API.Controllers
+namespace CarRental.API.Controllers.CarControllers
 {
-    
+
     public class ModelController : CustomBaseController
     {
         private readonly IService<Model> _service;
@@ -46,7 +46,7 @@ namespace CarRental.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public  async Task<IActionResult> Remove (int id)
+        public async Task<IActionResult> Remove(int id)
         {
             var model = await _service.GetByIdAsync(id);
             await _service.RemoveAsync(model);

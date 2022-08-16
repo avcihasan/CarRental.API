@@ -6,7 +6,7 @@ using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.API.Controllers
+namespace CarRental.API.Controllers.CarControllers
 {
     public class CarController : CustomBaseController
     {
@@ -24,7 +24,7 @@ namespace CarRental.API.Controllers
         {
             var cars = await _service.GetAllAsync();
             var carsDto = _mapper.Map<List<CarDto>>(cars);
-            return CreateActionResult(CustomResponseDto<List<CarDto>>.Success(200, carsDto.OrderBy(x => x.Brand.Name).ToList()));
+            return CreateActionResult(CustomResponseDto<List<CarDto>>.Success(200, carsDto.ToList()));
 
         }
 
@@ -77,6 +77,6 @@ namespace CarRental.API.Controllers
         {
             return CreateActionResult(await _service.GetCarsWithAllPropertiesAsync());
         }
-        
+
     }
 }

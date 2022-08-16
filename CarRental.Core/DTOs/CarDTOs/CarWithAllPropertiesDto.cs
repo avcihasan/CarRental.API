@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Core.DTOs.CarDTOs
 {
-    public class CarWithAllPropertiesDto : CarDto
+    public class CarWithAllPropertiesDto : CarDto 
     {
         public BrandDto Brand { get; set; }
         public ColorDto Color { get; set; }

@@ -6,7 +6,7 @@ using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.API.Controllers
+namespace CarRental.API.Controllers.CarControllers
 {
     public class BrandController : CustomBaseController
     {

@@ -12,6 +12,7 @@ namespace CarRental.Core.DTOs.CarDTOs
         public string Photo { get; set; }
         public string Description { get; set; }
         public int DailyPrice { get; set; }
+        public bool IsRent { get; set; }
 
 
         public BrandDto? Brand { get; set; }

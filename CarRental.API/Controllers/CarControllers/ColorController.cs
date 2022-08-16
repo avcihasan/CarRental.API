@@ -8,9 +8,9 @@ using Color = CarRental.Core.Models.Color;
 using CarRental.Core.DTOs.CarDTOs;
 using CarRental.Core.DTOs;
 
-namespace CarRental.API.Controllers
+namespace CarRental.API.Controllers.CarControllers
 {
-   
+
     public class ColorController : CustomBaseController
     {
 
@@ -28,7 +28,7 @@ namespace CarRental.API.Controllers
         {
             var colors = await _service.GetAllAsync();
             var colorsDto = _mapper.Map<List<ColorDto>>(colors);
-            return CreateActionResult(CustomResponseDto<List<ColorDto>>.Success(200,colorsDto.OrderBy(x => x.Name).ToList()));   
+            return CreateActionResult(CustomResponseDto<List<ColorDto>>.Success(200, colorsDto.OrderBy(x => x.Name).ToList()));
         }
 
         [HttpPost]
@@ -39,15 +39,15 @@ namespace CarRental.API.Controllers
             return CreateActionResult(CustomResponseDto<ColorDto>.Success(201, colorDto));
         }
 
-        [HttpPut]   
+        [HttpPut]
         public async Task<IActionResult> Update(ColorDto colorDto)
         {
             var color = _mapper.Map<Color>(colorDto);
             await _service.UpdateAsync(color);
-            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));    
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
-        [HttpDelete("{id}")]    
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
         {
             var color = await _service.GetByIdAsync(id);
