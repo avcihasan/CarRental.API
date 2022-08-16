@@ -1,0 +1,39 @@
+﻿using AutoMapper;
+using CarRental.Core.DTOs;
+using CarRental.Core.DTOs.CarDTOs;
+using CarRental.Core.Models;
+using CarRental.Core.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CarRental.API.Controllers
+{
+    
+    public class ModelController : CustomBaseController
+    {
+        private readonly IService<Model> _service;
+        private readonly IMapper _mapper;
+
+        public ModelController(IService<Model> service, IMapper mapper)
+        {
+            _service = service;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var models = await _service.GetAllAsync();
+            var modelsDto = _mapper.Map<List<ModelDto>>(models);
+            return CreateActionResult(CustomResponseDto<List<ModelDto>>.Success(200, modelsDto.OrderBy(x => x.Name).ToList()));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(ModelDto modelDto)
+        {
+            var model = _mapper.Map<Model>(modelDto);
+            await _service.AddAsync(model);
+            return CreateActionResult(CustomResponseDto<ModelDto>.Success(201, modelDto));
+        }
+    }
+}
