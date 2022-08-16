@@ -37,5 +37,22 @@ namespace CarRental.API.Controllers
             await _service.AddAsync(modelYear);
             return CreateActionResult(CustomResponseDto<ModelYearDto>.Success(201, modelYearDto));
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(ModelYearDto modelYearDto)
+        {
+            var modelYear = _mapper.Map<ModelYear>(modelYearDto);
+            await _service.UpdateAsync(modelYear);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var modelYear = await _service.GetByIdAsync(id);
+            await _service.RemoveAsync(modelYear);
+            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+        }
     }
 }
