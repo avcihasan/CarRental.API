@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace CarRental.Core.Repositories
 {
-    public interface IUserRepository:IGenericRepository<User>
+    public interface IUserCarRentalRepository:IGenericRepository<UserCarRental>
     {
+        Task RentalAsync(UserCarRental userCarRental);
+        Task<List<UserCarRental>> GetAllRentalDetailsAsync();
         
     }
 }

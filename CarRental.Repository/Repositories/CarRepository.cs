@@ -27,9 +27,23 @@ namespace CarRental.Repository.Repositories
                 .Include(x => x.ModelYear).ToListAsync();
         }
 
+        public async Task<Car> GetCarWithAllPropertiesByIdAsync(int id)
+        {
+            return await _context.Cars.Where(x => x.Id == id).Include(x => x.Brand)
+                .Include(x => x.Color)
+                .Include(x => x.Engine)
+                .Include(x => x.Model)
+                .Include(x => x.ModelYear).FirstOrDefaultAsync();
+        }
+
         public async Task<List<Car>> GetCarsWithBrandAsync()
         {
             return await _context.Cars.Include(x => x.Brand).ToListAsync();
+        }
+
+        public async Task<Car> GetCarWithBrandAndModelAsync(int id)
+        {
+            return await _context.Cars.Where(x=>x.Id==id).Include(x => x.Brand).Include(x=>x.Model).FirstOrDefaultAsync();
         }
     }
 }

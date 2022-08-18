@@ -4,6 +4,7 @@ using CarRental.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220817101645_IsRent2")]
+    partial class IsRent2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,6 +171,9 @@ namespace CarRental.Repository.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -183,48 +188,11 @@ namespace CarRental.Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CarId")
+                        .IsUnique()
+                        .HasFilter("[CarId] IS NOT NULL");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("CarRental.Core.Models.UserCarRental", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DailyPrice")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateOfIssue")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RentalDay")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("RollbackDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("isDelivered")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserCarRental");
                 });
 
             modelBuilder.Entity("CarRental.Core.Models.Car", b =>
@@ -270,28 +238,24 @@ namespace CarRental.Repository.Migrations
                     b.Navigation("ModelYear");
                 });
 
-            modelBuilder.Entity("CarRental.Core.Models.UserCarRental", b =>
+            modelBuilder.Entity("CarRental.Core.Models.User", b =>
                 {
                     b.HasOne("CarRental.Core.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarRental.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithOne("User")
+                        .HasForeignKey("CarRental.Core.Models.User", "CarId");
 
                     b.Navigation("Car");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarRental.Core.Models.Brand", b =>
                 {
                     b.Navigation("Cars");
+                });
+
+            modelBuilder.Entity("CarRental.Core.Models.Car", b =>
+                {
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarRental.Core.Models.Color", b =>

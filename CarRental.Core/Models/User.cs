@@ -14,7 +14,6 @@ namespace CarRental.Core.Models
         public int Age { get; set; }
 
 
-        public int? CarId { get; set; }
-        public Car Car { get; set; }
+       
     }
 }

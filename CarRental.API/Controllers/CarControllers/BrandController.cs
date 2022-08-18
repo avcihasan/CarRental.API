@@ -27,6 +27,16 @@ namespace CarRental.API.Controllers.CarControllers
             return CreateActionResult(CustomResponseDto<List<BrandDto>>.Success(200, brandsDto.OrderBy(x => x.Name).ToList()));
 
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var brand = await _service.GetByIdAsync(id);
+            var brandDto = _mapper.Map<BrandDto>(brand);
+            return CreateActionResult(CustomResponseDto<BrandDto>.Success(200, brandDto));
+
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> Save(BrandDto brandDto)

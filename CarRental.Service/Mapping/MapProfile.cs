@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarRental.Core.DTOs;
 using CarRental.Core.DTOs.CarDTOs;
+using CarRental.Core.DTOs.RentalDTOs;
 using CarRental.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,11 @@ namespace CarRental.Service.Mapping
             CreateMap<Model, ModelDto>().ReverseMap(); 
             CreateMap<ModelYear, ModelYearDto>().ReverseMap(); 
             CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<User, UsersWithCarsDto>().ReverseMap();
+            CreateMap<UserCarRental, UserCarRentalDto>().ReverseMap();
+            CreateMap<UserCarRental, RentalDetailsDto>().ReverseMap();
+
+            CreateMap<Car, CarWithBrandAndModelDto>().ReverseMap();
+            
 
 
 

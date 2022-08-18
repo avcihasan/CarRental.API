@@ -10,7 +10,7 @@ namespace CarRental.Core.Services
 {
     public interface IUserService:IService<User>
     {
-        Task<CustomResponseDto<List<UsersWithCarsDto>>> GetUsersWithCarsAsync();
+      
 
     }
 }

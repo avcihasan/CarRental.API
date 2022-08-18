@@ -21,6 +21,8 @@ namespace CarRental.Repository
         public DbSet<Model> Models { get; set; }
         public DbSet<ModelYear> ModelYears { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserCarRental> UserCarRental { get; set; }
+
 
     }
 }

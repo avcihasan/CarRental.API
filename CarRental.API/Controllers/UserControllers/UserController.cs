@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarRental.Core.DTOs;
+using CarRental.Core.DTOs.CarDTOs;
 using CarRental.Core.Models;
 using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
@@ -26,8 +27,15 @@ namespace CarRental.API.Controllers.UserControllers
             var usersDto = _mapper.Map<List<UserDto>>(users);
             return CreateActionResult(CustomResponseDto<List<UserDto>>.Success(200, usersDto.OrderBy(x =>x.FirstName).ToList()));
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var user = await _service.GetByIdAsync(id);
+            var userDto = _mapper.Map<UserDto>(user);
+            return CreateActionResult(CustomResponseDto<UserDto>.Success(200, userDto));
 
-       [HttpPost]
+        }
+        [HttpPost]
        public async Task<IActionResult> Save(UserDto userDto)
         {
             var user = _mapper.Map<User>(userDto);
@@ -50,10 +58,6 @@ namespace CarRental.API.Controllers.UserControllers
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetUsersWithCars()
-        {
-            return CreateActionResult(await _service.GetUsersWithCarsAsync());
-        }
+       
     }
 }

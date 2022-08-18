@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,10 @@ namespace CarRental.Core.Models
         public string Photo { get; set; }
         public string Description { get; set; }
         public int DailyPrice { get; set; }
+
+        [DefaultValue(true)]
+        public bool IsRent { get; set; } = true;
+
 
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
@@ -29,6 +34,6 @@ namespace CarRental.Core.Models
         public ModelYear ModelYear { get; set; }
 
         
-        public User User { get; set; }
+        
     }
 }

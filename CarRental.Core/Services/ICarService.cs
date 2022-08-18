@@ -12,6 +12,8 @@ namespace CarRental.Core.Services
     public interface ICarService:IService<Car>
     {
         Task<CustomResponseDto<List<CarWithBrandDto>>> GetCarsWithBrandAsync();
+        Task<CustomResponseDto<CarWithBrandAndModelDto>> GetCarWithBrandAndModelAsync(int id);
         Task<CustomResponseDto<List<CarWithAllPropertiesDto>>> GetCarsWithAllPropertiesAsync();
+        Task<CustomResponseDto<CarWithAllPropertiesDto>> GetCarWithAllPropertiesByIdAsync(int id);
     }
 }

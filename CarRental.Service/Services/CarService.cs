@@ -31,6 +31,13 @@ namespace CarRental.Service.Services
             return CustomResponseDto<List<CarWithAllPropertiesDto>>.Success(200, carsDto);
         }
 
+        public async Task<CustomResponseDto<CarWithAllPropertiesDto>> GetCarWithAllPropertiesByIdAsync(int id)
+        {
+            var car = await _carRepository.GetCarWithAllPropertiesByIdAsync(id);
+            var carDto = _mapper.Map<CarWithAllPropertiesDto>(car);
+            return CustomResponseDto<CarWithAllPropertiesDto>.Success(200, carDto);
+        }
+
         public async Task<CustomResponseDto<List<CarWithBrandDto>>> GetCarsWithBrandAsync()
         {
             
@@ -38,5 +45,14 @@ namespace CarRental.Service.Services
             var carsDto= _mapper.Map<List<CarWithBrandDto>>(cars);
             return CustomResponseDto<List<CarWithBrandDto>>.Success(200,carsDto);
         }
+
+        public async Task<CustomResponseDto<CarWithBrandAndModelDto>> GetCarWithBrandAndModelAsync(int id)
+        {
+            var car = await _carRepository.GetCarWithBrandAndModelAsync(id);
+            var carDto = _mapper.Map<CarWithBrandAndModelDto>(car);
+            return CustomResponseDto<CarWithBrandAndModelDto>.Success(200, carDto);
+        }
+
+       
     }
 }

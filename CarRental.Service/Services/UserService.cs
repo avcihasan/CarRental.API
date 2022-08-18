@@ -23,11 +23,6 @@ namespace CarRental.Service.Services
             _userRepository = carRepository;
         }
 
-        public async Task<CustomResponseDto<List<UsersWithCarsDto>>> GetUsersWithCarsAsync()
-        {
-            var users = await _userRepository.GetUsersWithCarsAsync();
-            var usersDto = _mapper.Map<List<UsersWithCarsDto>>(users);
-            return CustomResponseDto<List<UsersWithCarsDto>>.Success(200, usersDto);
-        }
+      
     }
 }

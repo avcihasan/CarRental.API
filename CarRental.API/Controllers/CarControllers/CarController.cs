@@ -41,6 +41,7 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> Save(CarDto carDto)
         {
             var car = _mapper.Map<Car>(carDto);
+            car.IsRent = true;
             await _service.AddAsync(car);
             return CreateActionResult(CustomResponseDto<CarDto>.Success(201, carDto));
 
@@ -76,6 +77,18 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> GetCarsWithAllProperties()
         {
             return CreateActionResult(await _service.GetCarsWithAllPropertiesAsync());
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetCarWithAllPropertiesById(int id)
+        {
+            return CreateActionResult(await _service.GetCarWithAllPropertiesByIdAsync(id));
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetCarWithBrandAndModel(int id)
+        {
+            return CreateActionResult(await _service.GetCarWithBrandAndModelAsync(id));
         }
 
     }

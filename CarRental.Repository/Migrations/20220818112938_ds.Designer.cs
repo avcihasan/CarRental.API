@@ -4,6 +4,7 @@ using CarRental.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220818112938_ds")]
+    partial class ds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,9 +205,6 @@ namespace CarRental.Repository.Migrations
                     b.Property<DateTime>("DateOfIssue")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RentalDay")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("RollbackDate")
                         .HasColumnType("datetime2");
 
@@ -219,10 +218,6 @@ namespace CarRental.Repository.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserCarRental");
                 });
@@ -268,25 +263,6 @@ namespace CarRental.Repository.Migrations
                     b.Navigation("Model");
 
                     b.Navigation("ModelYear");
-                });
-
-            modelBuilder.Entity("CarRental.Core.Models.UserCarRental", b =>
-                {
-                    b.HasOne("CarRental.Core.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarRental.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarRental.Core.Models.Brand", b =>
