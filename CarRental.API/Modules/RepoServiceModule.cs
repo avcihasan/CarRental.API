@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CarRental.Caching;
 using CarRental.Core.Repositories;
 using CarRental.Core.Services;
 using CarRental.Core.UnitOfWorks;
@@ -33,7 +34,7 @@ namespace CarRental.API.Modules
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name
            .EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
-
+            builder.RegisterType<CarServiceWithCaching>().As<ICarService>();
 
 
 

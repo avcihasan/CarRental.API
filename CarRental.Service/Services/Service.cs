@@ -2,12 +2,7 @@
 using CarRental.Core.Services;
 using CarRental.Core.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarRental.Service.Services
 {
@@ -37,10 +32,6 @@ namespace CarRental.Service.Services
             return entities;
         }
 
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
-        {
-            return await _repository.AnyAsync(expression);
-        }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
@@ -54,7 +45,7 @@ namespace CarRental.Service.Services
 
         public async Task RemoveAsync(T entity)
         {
-             _repository.Remove(entity);
+            _repository.Remove(entity);
             await _unitOfWork.CommitAsync();
         }
 
@@ -67,7 +58,7 @@ namespace CarRental.Service.Services
 
         public async Task UpdateAsync(T entity)
         {
-             _repository.Update(entity);
+            _repository.Update(entity);
             await _unitOfWork.CommitAsync();
         }
 
@@ -77,5 +68,5 @@ namespace CarRental.Service.Services
 
         }
     }
-     
+
 }
