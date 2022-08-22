@@ -1,3 +1,6 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using CarRental.API.Modules;
 using CarRental.Core.Repositories;
 using CarRental.Core.Services;
 using CarRental.Core.UnitOfWorks;
@@ -20,9 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+
 
 
 builder.Services.AddDbContext<AppDbContext>(x =>
@@ -46,14 +47,9 @@ builder.Services.AddCors(options =>
 });
 
 
-builder.Services.AddScoped<ICarRepository, CarRepository>();
-builder.Services.AddScoped<ICarService, CarService>();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddScoped<IUserCarRentalRepository, UserCarRentalRepository>();
-builder.Services.AddScoped<IUserCarRentalService, UserCarRentalService>();
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
 
 var app = builder.Build();
 
