@@ -36,7 +36,7 @@ namespace CarRental.API.Modules
 
             builder.RegisterType<CarServiceWithCaching>().As<ICarService>();
 
-
+            builder.RegisterType<UserCarRentalServiceWithCaching>().As<IUserCarRentalService>();
 
 
         }

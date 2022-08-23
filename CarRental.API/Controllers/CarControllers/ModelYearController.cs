@@ -27,7 +27,7 @@ namespace CarRental.API.Controllers.CarControllers
         {
             var modelYears = await _service.GetAllAsync();
             var modelYearsDto = _mapper.Map<List<ModelYearDto>>(modelYears);
-            return CreateActionResult(CustomResponseDto<List<ModelYearDto>>.Success(200, modelYearsDto.OrderBy(x => x.Year).ToList()));
+            return CreateActionResult(CustomResponseDto<List<ModelYearDto>>.Success(200, modelYearsDto.OrderBy(x => x.ModelYears).ToList()));
         }
 
         [HttpPost]

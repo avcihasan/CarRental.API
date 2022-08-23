@@ -8,7 +8,8 @@ namespace CarRental.Core.Models
 {
     public class ModelYear:BaseEntity
     {
-        public DateTime Year { get; set; }
+        public int ModelYears { get; set; }
+
         public List<Car> Cars { get; set; }
 
     }

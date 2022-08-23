@@ -19,16 +19,19 @@ namespace CarRental.Repository.Repositories
 
         public async Task<List<UserCarRental>> GetAllRentalDetailsAsync()
         {
-           
+
             return await _dbSet.Include(x => x.User)
-                .Include(x=>x.Car)
+                .Include(x => x.Car)
+                .ThenInclude(x => x.Brand)
+                 .Include(x => x.Car)
+                .ThenInclude(x => x.Model)
                 .ToListAsync();
         }
 
         public async Task RentalAsync(UserCarRental userCarRental)
         {
 
-           var car= await _context.Cars.Where(x => x.Id == userCarRental.CarId).FirstOrDefaultAsync();
+            var car = await _context.Cars.Where(x => x.Id == userCarRental.CarId).FirstOrDefaultAsync();
             car.IsRent = false;
             userCarRental.isDelivered = true;
             await _dbSet.AddAsync(userCarRental);

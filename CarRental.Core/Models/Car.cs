@@ -13,6 +13,7 @@ namespace CarRental.Core.Models
         public string Photo { get; set; }
         public string Description { get; set; }
         public int DailyPrice { get; set; }
+        public string LicensePlate { get; set; }
 
         [DefaultValue(true)]
         public bool IsRent { get; set; } = true;

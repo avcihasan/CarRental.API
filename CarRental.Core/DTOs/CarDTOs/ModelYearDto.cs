@@ -9,6 +9,6 @@ namespace CarRental.Core.DTOs.CarDTOs
     public class ModelYearDto : BaseDto
     {
     
-        public DateTime Year { get; set; }
+        public int ModelYears { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace CarRental.Core.Models
         public int DailyPrice { get; set; }
         public int TotalPrice { get; set; }
         public bool isDelivered { get; set; }=false;
-        public DateTime DateOfIssue { get; set; }=DateTime.Now;
+        public DateTime DateOfIssue { get; set; }
         public DateTime? RollbackDate { get; set; }
 
     }

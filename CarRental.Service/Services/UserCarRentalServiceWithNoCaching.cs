@@ -15,14 +15,14 @@ using System.Threading.Tasks;
 
 namespace CarRental.Service.Services
 {
-    public class UserCarRentalService : Service<UserCarRental>, IUserCarRentalService
+    public class UserCarRentalServiceWithNoCaching : Service<UserCarRental>, IUserCarRentalService
     {
         private readonly IUserCarRentalRepository _userCarRentalRepository;
       
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public UserCarRentalService(IGenericRepository<UserCarRental> repository, IUnitOfWork unitOfWork, IUserCarRentalRepository userCarRentalRepository, IMapper mapper) : base(repository, unitOfWork)
+        public UserCarRentalServiceWithNoCaching(IGenericRepository<UserCarRental> repository, IUnitOfWork unitOfWork, IUserCarRentalRepository userCarRentalRepository, IMapper mapper) : base(repository, unitOfWork)
         {
             _userCarRentalRepository = userCarRentalRepository;
             _unitOfWork = unitOfWork;
@@ -40,6 +40,9 @@ namespace CarRental.Service.Services
 
         public async Task<UserCarRental> RentalAsync(UserCarRental userCarRental)
         {
+            userCarRental.DateOfIssue = DateTime.Now;
+
+            userCarRental.RollbackDate = DateTime.Now.AddDays(userCarRental.RentalDay);
             await _userCarRentalRepository.RentalAsync(userCarRental);
             await _unitOfWork.CommitAsync();
             return userCarRental;
