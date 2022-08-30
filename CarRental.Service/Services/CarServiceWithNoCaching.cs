@@ -24,33 +24,33 @@ namespace CarRental.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<CustomResponseDto<List<CarWithAllPropertiesDto>>> GetCarsWithAllPropertiesAsync()
+        public async Task<CustomResponseDto<List<GetCarWithAllPropertiesDto>>> GetCarsWithAllPropertiesAsync()
         {
             var cars = await _carRepository.GetCarsWithAllPropertiesAsync();
-            var carsDto = _mapper.Map<List<CarWithAllPropertiesDto>>(cars);
-            return CustomResponseDto<List<CarWithAllPropertiesDto>>.Success(200, carsDto);
+            var carsDto = _mapper.Map<List<GetCarWithAllPropertiesDto>>(cars);
+            return CustomResponseDto<List<GetCarWithAllPropertiesDto>>.Success(200, carsDto);
         }
 
-        public async Task<CustomResponseDto<CarWithAllPropertiesDto>> GetCarWithAllPropertiesByIdAsync(int id)
+        public async Task<CustomResponseDto<GetCarWithAllPropertiesDto>> GetCarWithAllPropertiesByIdAsync(int id)
         {
             var car = await _carRepository.GetCarWithAllPropertiesByIdAsync(id);
-            var carDto = _mapper.Map<CarWithAllPropertiesDto>(car);
-            return CustomResponseDto<CarWithAllPropertiesDto>.Success(200, carDto);
+            var carDto = _mapper.Map<GetCarWithAllPropertiesDto>(car);
+            return CustomResponseDto<GetCarWithAllPropertiesDto>.Success(200, carDto);
         }
 
-        public async Task<CustomResponseDto<List<CarWithBrandDto>>> GetCarsWithBrandAsync()
+        public async Task<CustomResponseDto<List<GetCarWithBrandDto>>> GetCarsWithBrandAsync()
         {
             
             var cars = await _carRepository.GetCarsWithBrandAsync();
-            var carsDto= _mapper.Map<List<CarWithBrandDto>>(cars);
-            return CustomResponseDto<List<CarWithBrandDto>>.Success(200,carsDto);
+            var carsDto= _mapper.Map<List<GetCarWithBrandDto>>(cars);
+            return CustomResponseDto<List<GetCarWithBrandDto>>.Success(200,carsDto);
         }
 
-        public async Task<CustomResponseDto<CarWithBrandAndModelDto>> GetCarWithBrandAndModelAsync(int id)
+        public async Task<CustomResponseDto<GetCarWithBrandAndModelDto>> GetCarWithBrandAndModelAsync(int id)
         {
             var car = await _carRepository.GetCarWithBrandAndModelAsync(id);
-            var carDto = _mapper.Map<CarWithBrandAndModelDto>(car);
-            return CustomResponseDto<CarWithBrandAndModelDto>.Success(200, carDto);
+            var carDto = _mapper.Map<GetCarWithBrandAndModelDto>(car);
+            return CustomResponseDto<GetCarWithBrandAndModelDto>.Success(200, carDto);
         }
 
        

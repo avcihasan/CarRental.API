@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 using CarRental.Core.Models;
 using Color = CarRental.Core.Models.Color;
-using CarRental.Core.DTOs.CarDTOs;
 using CarRental.Core.DTOs;
+using CarRental.Core.DTOs.ColorDTOs;
 
-namespace CarRental.API.Controllers.CarControllers
+namespace CarRental.API.Controllers.ColorControllers
 {
 
     public class ColorController : CustomBaseController
@@ -27,20 +27,20 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> All()
         {
             var colors = await _service.GetAllAsync();
-            var colorsDto = _mapper.Map<List<ColorDto>>(colors);
-            return CreateActionResult(CustomResponseDto<List<ColorDto>>.Success(200, colorsDto.OrderBy(x => x.Name).ToList()));
+            var colorsDto = _mapper.Map<List<GetColorDto>>(colors);
+            return CreateActionResult(CustomResponseDto<List<GetColorDto>>.Success(200, colorsDto.OrderBy(x => x.Name).ToList()));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(ColorDto colorDto)
+        public async Task<IActionResult> Save(SetColorDto colorDto)
         {
             var color = _mapper.Map<Color>(colorDto);
             await _service.AddAsync(color);
-            return CreateActionResult(CustomResponseDto<ColorDto>.Success(201, colorDto));
+            return CreateActionResult(CustomResponseDto<SetColorDto>.Success(201, colorDto));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(ColorDto colorDto)
+        public async Task<IActionResult> Update(GetColorDto colorDto)
         {
             var color = _mapper.Map<Color>(colorDto);
             await _service.UpdateAsync(color);

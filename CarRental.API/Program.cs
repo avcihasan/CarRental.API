@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CarRental.API.Modules;
+using CarRental.Caching;
 using CarRental.Core.Repositories;
 using CarRental.Core.Services;
 using CarRental.Core.UnitOfWorks;
@@ -10,11 +11,14 @@ using CarRental.Repository.UnitOfWorks;
 using CarRental.Service.Mapping;
 using CarRental.Service.Services;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
+using System.Globalization;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+builder.Services.AddSingleton<RedisService>();
 
 // Add services to the container.
 
@@ -25,7 +29,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 
-
+builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
+    ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnection")));
 
 builder.Services.AddDbContext<AppDbContext>(x =>
 {
@@ -49,6 +54,8 @@ builder.Services.AddCors(options =>
 
 
 
+
+
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
 
@@ -62,6 +69,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.UseHttpsRedirection();
 

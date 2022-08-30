@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using CarRental.Core.DTOs;
-using CarRental.Core.DTOs.CarDTOs;
+using CarRental.Core.DTOs.BrandDTOs;
+using CarRental.Core.DTOs.ModelDTOs;
 using CarRental.Core.Models;
 using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.API.Controllers.CarControllers
+namespace CarRental.API.Controllers.ModelControllers
 {
 
     public class ModelController : CustomBaseController
@@ -24,27 +25,27 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> All()
         {
             var models = await _service.GetAllAsync();
-            var modelsDto = _mapper.Map<List<ModelDto>>(models);
-            return CreateActionResult(CustomResponseDto<List<ModelDto>>.Success(200, modelsDto.OrderBy(x => x.Name).ToList()));
+            var modelsDto = _mapper.Map<List<GetModelDto>>(models);
+            return CreateActionResult(CustomResponseDto<List<GetModelDto>>.Success(200, modelsDto.OrderBy(x => x.Name).ToList()));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var model = await _service.GetByIdAsync(id);
-            var modelDto = _mapper.Map<BrandDto>(model);
-            return CreateActionResult(CustomResponseDto<BrandDto>.Success(200, modelDto));
+            var modelDto = _mapper.Map<GetModelDto>(model);
+            return CreateActionResult(CustomResponseDto<GetModelDto>.Success(200, modelDto));
 
         }
         [HttpPost]
-        public async Task<IActionResult> Save(ModelDto modelDto)
+        public async Task<IActionResult> Save(SetModelDto modelDto)
         {
             var model = _mapper.Map<Model>(modelDto);
             await _service.AddAsync(model);
-            return CreateActionResult(CustomResponseDto<ModelDto>.Success(201, modelDto));
+            return CreateActionResult(CustomResponseDto<SetModelDto>.Success(201, modelDto));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(ModelDto modelDto)
+        public async Task<IActionResult> Update(GetModelDto modelDto)
         {
             var model = _mapper.Map<Model>(modelDto);
             await _service.UpdateAsync(model);

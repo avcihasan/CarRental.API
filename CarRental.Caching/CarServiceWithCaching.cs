@@ -68,36 +68,36 @@ namespace CarRental.Caching
             return Task.FromResult(car);
         }
 
-        public Task<CustomResponseDto<List<CarWithAllPropertiesDto>>> GetCarsWithAllPropertiesAsync()
+        public Task<CustomResponseDto<List<GetCarWithAllPropertiesDto>>> GetCarsWithAllPropertiesAsync()
         {
             var cars = _memoryCache.Get<IEnumerable<Car>>(CacheCarKey);
-            var carsDto = _mapper.Map<List<CarWithAllPropertiesDto>>(cars);
-            return Task.FromResult(CustomResponseDto<List<CarWithAllPropertiesDto>>.Success(200, carsDto));
+            var carsDto = _mapper.Map<List<GetCarWithAllPropertiesDto>>(cars);
+            return Task.FromResult(CustomResponseDto<List<GetCarWithAllPropertiesDto>>.Success(200, carsDto));
 
         }
 
-        public Task<CustomResponseDto<List<CarWithBrandDto>>> GetCarsWithBrandAsync()
+        public Task<CustomResponseDto<List<GetCarWithBrandDto>>> GetCarsWithBrandAsync()
         {
             var cars = _memoryCache.Get<IEnumerable<Car>>(CacheCarKey);
-            var carsDto = _mapper.Map<List<CarWithBrandDto>>(cars);
-            return Task.FromResult(CustomResponseDto<List<CarWithBrandDto>>.Success(200, carsDto));
+            var carsDto = _mapper.Map<List<GetCarWithBrandDto>>(cars);
+            return Task.FromResult(CustomResponseDto<List<GetCarWithBrandDto>>.Success(200, carsDto));
         }
 
-        public Task<CustomResponseDto<CarWithAllPropertiesDto>> GetCarWithAllPropertiesByIdAsync(int id)
+        public Task<CustomResponseDto<GetCarWithAllPropertiesDto>> GetCarWithAllPropertiesByIdAsync(int id)
         {
             var car = _memoryCache.Get<List<Car>>(CacheCarKey).FirstOrDefault(x => x.Id == id);
 
-            var carDto = _mapper.Map<CarWithAllPropertiesDto>(car);
-            return Task.FromResult(CustomResponseDto<CarWithAllPropertiesDto>.Success(200, carDto));
+            var carDto = _mapper.Map<GetCarWithAllPropertiesDto>(car);
+            return Task.FromResult(CustomResponseDto<GetCarWithAllPropertiesDto>.Success(200, carDto));
         }
 
-        public Task<CustomResponseDto<CarWithBrandAndModelDto>> GetCarWithBrandAndModelAsync(int id)
+        public Task<CustomResponseDto<GetCarWithBrandAndModelDto>> GetCarWithBrandAndModelAsync(int id)
         {
 
             var car = _memoryCache.Get<List<Car>>(CacheCarKey).FirstOrDefault(x => x.Id == id);
 
-            var carDto = _mapper.Map<CarWithBrandAndModelDto>(car);
-            return Task.FromResult(CustomResponseDto<CarWithBrandAndModelDto>.Success(200, carDto));
+            var carDto = _mapper.Map<GetCarWithBrandAndModelDto>(car);
+            return Task.FromResult(CustomResponseDto<GetCarWithBrandAndModelDto>.Success(200, carDto));
         }
 
         public async Task RemoveAsync(Car entity)

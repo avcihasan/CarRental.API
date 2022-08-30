@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarRental.Caching;
 using CarRental.Core.DTOs;
 using CarRental.Core.DTOs.CarDTOs;
 using CarRental.Core.Models;
@@ -13,7 +14,8 @@ namespace CarRental.API.Controllers.CarControllers
         private readonly ICarService _service;
         private readonly IMapper _mapper;
 
-        public CarController(ICarService service, IMapper mapper)
+
+        public CarController(ICarService service, IMapper mapper, RedisService redisService)
         {
             _service = service;
             _mapper = mapper;
@@ -23,8 +25,8 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> All()
         {
             var cars = await _service.GetAllAsync();
-            var carsDto = _mapper.Map<List<CarDto>>(cars);
-            return CreateActionResult(CustomResponseDto<List<CarDto>>.Success(200, carsDto.ToList()));
+            var carsDto = _mapper.Map<List<GetCarDto>>(cars);
+            return CreateActionResult(CustomResponseDto<List<GetCarDto>>.Success(200, carsDto.ToList()));
 
         }
 
@@ -33,25 +35,25 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> GetById(int id)
         {
             var car = await _service.GetByIdAsync(id);
-            var carDto = _mapper.Map<CarDto>(car);
-            return CreateActionResult(CustomResponseDto<CarDto>.Success(200, carDto));
+            var carDto = _mapper.Map<GetCarDto>(car);
+            return CreateActionResult(CustomResponseDto<GetCarDto>.Success(200, carDto));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(CarDto carDto)
+        public async Task<IActionResult> Save(SetCarDto carDto)
         {
+           
             var car = _mapper.Map<Car>(carDto);
             car.IsRent = true;
             await _service.AddAsync(car);
-            return CreateActionResult(CustomResponseDto<CarDto>.Success(201, carDto));
+            return CreateActionResult(CustomResponseDto<SetCarDto>.Success(201, carDto));
 
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(CarDto carDto)
+        public async Task<IActionResult> Update(SetCarDto carDto)   
         {
             var car = _mapper.Map<Car>(carDto);
-
             await _service.UpdateAsync(car);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
 

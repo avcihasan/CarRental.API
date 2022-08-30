@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Core.DTOs.CarDTOs
+namespace CarRental.Core.DTOs.ModelYearDTOs
 {
-    public class ColorDto : BaseDto
+    public class GetModelYearDto : BaseDto
     {
-    
-        public string Name { get; set; }
 
+        public int ModelYears { get; set; }
     }
 }

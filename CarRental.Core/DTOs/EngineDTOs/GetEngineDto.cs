@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Core.DTOs.CarDTOs
+namespace CarRental.Core.DTOs.EngineDTOs
 {
-    public class CarWithBrandDto : CarDto
+    public class GetEngineDto : BaseDto
     {
-        public BrandDto Brand { get; set; }
+
+        public string Name { get; set; }
+
     }
 }

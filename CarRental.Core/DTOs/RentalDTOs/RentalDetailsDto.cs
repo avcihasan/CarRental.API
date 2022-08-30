@@ -13,7 +13,7 @@ namespace CarRental.Core.DTOs.RentalDTOs
 
         public User User { get; set; }
 
-        public CarWithAllPropertiesDto Car { get; set; }
+        public GetCarWithAllPropertiesDto Car { get; set; }
    
         public bool isDelivered { get; set; } = false;
         public DateTime DateOfIssue { get; set; } 

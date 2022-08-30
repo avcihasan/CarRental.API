@@ -1,6 +1,11 @@
 ﻿using AutoMapper;
 using CarRental.Core.DTOs;
+using CarRental.Core.DTOs.BrandDTOs;
 using CarRental.Core.DTOs.CarDTOs;
+using CarRental.Core.DTOs.ColorDTOs;
+using CarRental.Core.DTOs.EngineDTOs;
+using CarRental.Core.DTOs.ModelDTOs;
+using CarRental.Core.DTOs.ModelYearDTOs;
 using CarRental.Core.DTOs.RentalDTOs;
 using CarRental.Core.Models;
 using System;
@@ -15,19 +20,36 @@ namespace CarRental.Service.Mapping
     {
         public MapProfile()
         {
-            CreateMap<Car, CarDto>().ReverseMap();
-            CreateMap<Brand , BrandDto>().ReverseMap();
-            CreateMap<Car, CarWithBrandDto>();
-            CreateMap<Car, CarWithAllPropertiesDto>().ReverseMap();
-            CreateMap<Color, ColorDto>().ReverseMap(); 
-            CreateMap<Engine, EngineDto>().ReverseMap(); 
-            CreateMap<Model, ModelDto>().ReverseMap(); 
-            CreateMap<ModelYear, ModelYearDto>().ReverseMap(); 
+            CreateMap<Car, GetCarDto>().ReverseMap();
+            CreateMap<SetCarDto, Car>().ReverseMap();
+
+            CreateMap<Brand , GetBrandDto>().ReverseMap(); 
+            CreateMap<SetBrandDto, Brand>();
+
+            CreateMap<Car, GetCarWithBrandDto>(); 
+
+            CreateMap<Car, GetCarWithAllPropertiesDto>().ReverseMap();
+            CreateMap<SetCarWithAllPropertiesDto, Car>();
+
+            CreateMap<Color, GetColorDto>().ReverseMap(); 
+            CreateMap<SetColorDto, Color>();
+
+            CreateMap<Engine, GetEngineDto>().ReverseMap(); 
+            CreateMap<SetEngineDto, Engine>();
+
+            CreateMap<Model, GetModelDto>().ReverseMap(); 
+            CreateMap<SetModelDto, Model>();
+
+            CreateMap<ModelYear, GetModelYearDto>().ReverseMap() ;
+            CreateMap<SetModelYearDto, ModelYear>();
+
+            CreateMap<Car, GetCarWithBrandAndModelDto>() ;
+
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<UserCarRental, UserCarRentalDto>().ReverseMap();
             CreateMap<UserCarRental, RentalDetailsDto>().ReverseMap();
 
-            CreateMap<Car, CarWithBrandAndModelDto>().ReverseMap();
+           
             
 
 

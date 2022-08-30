@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using CarRental.Core.DTOs;
-using CarRental.Core.DTOs.CarDTOs;
+using CarRental.Core.DTOs.EngineDTOs;
 using CarRental.Core.Models;
 using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.API.Controllers.CarControllers
+namespace CarRental.API.Controllers.EngineControllers
 {
 
     public class EngineController : CustomBaseController
@@ -24,22 +24,22 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> All()
         {
             var engines = await _service.GetAllAsync();
-            var enginesDto = _mapper.Map<List<EngineDto>>(engines);
-            return CreateActionResult(CustomResponseDto<List<EngineDto>>.Success(200, enginesDto.OrderBy(x => x.Name).ToList()));
+            var enginesDto = _mapper.Map<List<GetEngineDto>>(engines);
+            return CreateActionResult(CustomResponseDto<List<GetEngineDto>>.Success(200, enginesDto.OrderBy(x => x.Name).ToList()));
 
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Save(EngineDto engineDto)
+        public async Task<IActionResult> Save(SetEngineDto engineDto)
         {
             var engine = _mapper.Map<Engine>(engineDto);
             await _service.AddAsync(engine);
-            return CreateActionResult(CustomResponseDto<EngineDto>.Success(201, engineDto));
+            return CreateActionResult(CustomResponseDto<SetEngineDto>.Success(201, engineDto));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(EngineDto engineDto)
+        public async Task<IActionResult> Update(GetEngineDto engineDto)
         {
             var engine = _mapper.Map<Engine>(engineDto);
             await _service.UpdateAsync(engine);

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using CarRental.Core.DTOs;
-using CarRental.Core.DTOs.CarDTOs;
+using CarRental.Core.DTOs.ModelYearDTOs;
 using CarRental.Core.Models;
 using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.API.Controllers.CarControllers
+namespace CarRental.API.Controllers.ModelYearControllers
 {
 
     public class ModelYearController : CustomBaseController
@@ -26,20 +26,20 @@ namespace CarRental.API.Controllers.CarControllers
         public async Task<IActionResult> All()
         {
             var modelYears = await _service.GetAllAsync();
-            var modelYearsDto = _mapper.Map<List<ModelYearDto>>(modelYears);
-            return CreateActionResult(CustomResponseDto<List<ModelYearDto>>.Success(200, modelYearsDto.OrderBy(x => x.ModelYears).ToList()));
+            var modelYearsDto = _mapper.Map<List<GetModelYearDto>>(modelYears);
+            return CreateActionResult(CustomResponseDto<List<GetModelYearDto>>.Success(200, modelYearsDto.OrderBy(x => x.ModelYears).ToList()));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(ModelYearDto modelYearDto)
+        public async Task<IActionResult> Save(SetModelYearDto modelYearDto)
         {
             var modelYear = _mapper.Map<ModelYear>(modelYearDto);
             await _service.AddAsync(modelYear);
-            return CreateActionResult(CustomResponseDto<ModelYearDto>.Success(201, modelYearDto));
+            return CreateActionResult(CustomResponseDto<SetModelYearDto>.Success(201, modelYearDto));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(ModelYearDto modelYearDto)
+        public async Task<IActionResult> Update(GetModelYearDto modelYearDto)
         {
             var modelYear = _mapper.Map<ModelYear>(modelYearDto);
             await _service.UpdateAsync(modelYear);
