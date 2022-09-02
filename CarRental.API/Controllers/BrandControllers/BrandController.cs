@@ -6,6 +6,8 @@ using CarRental.Core.Models;
 using CarRental.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace CarRental.API.Controllers.BrandControllers
 {
@@ -27,11 +29,13 @@ namespace CarRental.API.Controllers.BrandControllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var db = _redisService.GetDb(0);
-            db.StringIncrement("ziyaretci", 1);
+          
 
 
             var brands = await _service.GetAllAsync();
+
+            
+
             var brandsDto = _mapper.Map<List<GetBrandDto>>(brands);
             return CreateActionResult(CustomResponseDto<List<GetBrandDto>>.Success(200, brandsDto.OrderBy(x => x.Name).ToList()));
 
@@ -50,12 +54,6 @@ namespace CarRental.API.Controllers.BrandControllers
         [HttpPost]
         public async Task<IActionResult> Save(SetBrandDto brandDto)
         {
-
-
-            var db = _redisService.GetDb(3);
-            db.StringSet("BrandName", brandDto.Name);
-
-
             var brand = _mapper.Map<Brand>(brandDto);
             await _service.AddAsync(brand);
             return CreateActionResult(CustomResponseDto<SetBrandDto>.Success(201, brandDto));

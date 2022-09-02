@@ -40,7 +40,7 @@ namespace CarRental.Service.Services
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _repository.GetByIdAsyn(id);
+            return await _repository.GetByIdAsync(id);
         }
 
         public async Task RemoveAsync(T entity)

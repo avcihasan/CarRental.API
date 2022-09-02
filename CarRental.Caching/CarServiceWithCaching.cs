@@ -5,6 +5,7 @@ using CarRental.Core.Models;
 using CarRental.Core.Repositories;
 using CarRental.Core.Services;
 using CarRental.Core.UnitOfWorks;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
@@ -86,7 +87,10 @@ namespace CarRental.Caching
         public Task<CustomResponseDto<GetCarWithAllPropertiesDto>> GetCarWithAllPropertiesByIdAsync(int id)
         {
             var car = _memoryCache.Get<List<Car>>(CacheCarKey).FirstOrDefault(x => x.Id == id);
-
+            if (car == null)
+            {
+                return Task.FromResult(CustomResponseDto<GetCarWithAllPropertiesDto>.Fail(404, "Araba Bulunamadı!"));
+            }
             var carDto = _mapper.Map<GetCarWithAllPropertiesDto>(car);
             return Task.FromResult(CustomResponseDto<GetCarWithAllPropertiesDto>.Success(200, carDto));
         }
@@ -95,6 +99,11 @@ namespace CarRental.Caching
         {
 
             var car = _memoryCache.Get<List<Car>>(CacheCarKey).FirstOrDefault(x => x.Id == id);
+
+            if (car==null)
+            {
+                return Task.FromResult(CustomResponseDto<GetCarWithBrandAndModelDto>.Fail(404, "Araba Bulunamadı!"));
+            }
 
             var carDto = _mapper.Map<GetCarWithBrandAndModelDto>(car);
             return Task.FromResult(CustomResponseDto<GetCarWithBrandAndModelDto>.Success(200, carDto));
@@ -129,6 +138,7 @@ namespace CarRental.Caching
 
         public async Task CacheAllCarsAsync()
         {
+
             _memoryCache.Set(CacheCarKey,await _repository.GetCarsWithAllPropertiesAsync());
         }
 

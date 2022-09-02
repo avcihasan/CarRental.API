@@ -34,7 +34,7 @@ namespace CarRental.API.Modules
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name
            .EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            builder.RegisterType<CarServiceWithCaching>().As<ICarService>();
+            builder.RegisterType<RedisService>().As<ICarService>();
 
             builder.RegisterType<UserCarRentalServiceWithCaching>().As<IUserCarRentalService>();
 
